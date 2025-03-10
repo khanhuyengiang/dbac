@@ -5,9 +5,10 @@ from qibo.symbols import Z
 
 L = 1
 H_sh = hamiltonians.SymbolicHamiltonian(Z(0), nqubits = 1)
-H = - H_sh.matrix
-eigs = H_sh.eigenvalues()
-target_energy = min(eigs)
+H = np.array([[-1.-0.j, -0.-0.j],
+                [-0.-0.j,  1.-0.j]])
+eigs = np.array([-1.,  1.])
+target_energy = -1
 
 def DME(instruction,data,t,M=100): 
     _t = t/M 

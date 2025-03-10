@@ -17,9 +17,10 @@ class GCI:
         # Fixed parts
         self.L = 1
         self.H_sh = hamiltonians.SymbolicHamiltonian(Z(0), nqubits=1)
-        self.H = -self.H_sh.matrix
-        self.eigs = self.H_sh.eigenvalues()
-        self.target_energy = min(self.eigs)
+        self.H = np.array([[-1.-0.j, -0.-0.j],
+                            [-0.-0.j,  1.-0.j]])
+        self.eigs = np.array([-1.,  1.])
+        self.target_energy = -1
 
         self.results = []
         self.fidelities = []
