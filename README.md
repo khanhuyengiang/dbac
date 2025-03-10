@@ -7,3 +7,5 @@ In this repo, there will be:
 - DME
 - DB-QITE
 - circuit draw
+
+View `jupyter_notebooks` for DME and DB-QITE notebooks. View `functions` for basic function and classes.
