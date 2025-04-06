@@ -13,6 +13,7 @@ class GCI:
         self.nmb_steps = nmb_steps
         self.times_dbr = times_dbr
         self.please_be_verbose = please_be_verbose
+        self.states = [state_of_recursion]
         
         # Fixed parts
         self.L = 1
@@ -59,6 +60,7 @@ class GCI:
                 self.state_of_recursion = self.gci_step(self.state_of_recursion, s)
                 self.results.append(self.compute_moments(self.state_of_recursion))
                 self.fidelities.append(self.fidelity_with_0(self.state_of_recursion))
+                self.states.append(self.state_of_recursion)
             self.s_mins = [0] + self.times_dbr
         else:
             for k in range(self.nmb_steps):
@@ -71,6 +73,7 @@ class GCI:
                 self.results.append(self.compute_moments(self.state_of_recursion))
                 self.fidelities.append(self.fidelity_with_0(self.state_of_recursion))
                 self.s_mins.append(s_min)
+                self.states.append(self.state_of_recursion)
                 if isinstance(self.state_of_recursion, Circuit):
                     self.circuit_depths.append(len(self.state_of_recursion.queue) * 3)
                     self.circuits.append(self.state_of_recursion)
@@ -91,6 +94,7 @@ class GCI:
             self.gci_step.label, self.gci_step.marker,
             self.circuit_depths if isinstance(self.state_of_recursion, Circuit) else None,
             self.circuits if isinstance(self.state_of_recursion, Circuit) else None,
+            self.states,
             self.state_of_recursion,
             self.fidelities
         )
