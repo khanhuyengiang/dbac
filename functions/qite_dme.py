@@ -41,3 +41,10 @@ def initial_psi(psi, s):
     initial_psi.label="Initial state"
     initial_psi.marker = 'o'
     return psi
+
+def ideal_DME(psi,s):
+    PSI = psi@psi.T.conj()
+    U_t = expm(1j*s*H)
+    instruction = U_t @ PSI @ U_t.conj().T
+    state = expm(1j*s*instruction) @ PSI @ expm(-1j*s*instruction)
+    return state
