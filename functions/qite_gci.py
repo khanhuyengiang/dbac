@@ -1,9 +1,8 @@
-
 from qibo import hamiltonians, Circuit
 from qibo.symbols import Z
 import numpy as np
 import matplotlib.pyplot as plt
-
+from scipy.optimize import minimize
 
 class GCI:
     def __init__(self, gci_step, state_of_recursion, nmb_steps, times_dbr, please_be_verbose=True):
@@ -122,3 +121,11 @@ class GCI:
         plt.grid()
         plt.legend(bbox_to_anchor=(1, 1))
         plt.show()
+
+
+# Step size ptimization
+def max_excitation(thetas, fidelity, target_fidelity, tolerance=1e-2):
+    """
+    Find the x value corresponding to y = y_const within a given tolerance.
+    """
+    return next((xi for xi, yi in zip(thetas, fidelity) if abs(yi - target_fidelity) <= tolerance), None)
