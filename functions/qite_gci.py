@@ -124,8 +124,15 @@ class GCI:
 
 
 # Step size ptimization
-def max_excitation(thetas, fidelity, target_fidelity, tolerance=1e-2):
+def max_excitation(thetas, fidelity, target_fidelity, initial_tolerance=1e-5, max_tolerance=0.2, step=1e-3):
     """
-    Find the x value corresponding to y = y_const within a given tolerance.
+    Find the x value corresponding to y = target_fidelity within an adjustable tolerance.
+    If not found, increase tolerance gradually up to max_tolerance.
     """
-    return next((xi for xi, yi in zip(thetas, fidelity) if abs(yi - target_fidelity) <= tolerance), None)
+    tolerance = initial_tolerance
+    while tolerance <= max_tolerance:
+        for xi, yi in zip(thetas, fidelity):
+            if abs(yi - target_fidelity) <= tolerance:
+                return xi
+        tolerance += step
+    return None  # or raise an error if no match is acceptable
