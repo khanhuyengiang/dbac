@@ -1,7 +1,39 @@
+"""
+plot_process_matrix.py
+
+Visualization utilities for quantum process matrices using color to encode 
+phase (hue) and magnitude (size) of matrix elements. This is useful for 
+analyzing quantum channels or gates represented in the Pauli basis.
+
+Functions:
+- plot_process_matrix: Visualizes a complex-valued process matrix in the Pauli basis 
+  using hue for phase and size for magnitude.
+
+Globals:
+- pauli_labels: Labels for single-qubit Pauli basis.
+- pauli_labels_2q: Labels for two-qubit Pauli basis.
+
+Dependencies:
+- numpy
+- matplotlib
+"""
+
+__all__ = [
+    "pauli_labels",
+    "pauli_labels_2q",
+    "plot_process_matrix"
+]
+
 import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib.colors import hsv_to_rgb
 import matplotlib.patches as mpatches
+
+pauli_labels = ["I", "X", "Y", "Z"]
+pauli_labels_2q = ['II', 'IX', 'IY', 'IZ',
+ 'XI', 'XX', 'XY', 'XZ',
+ 'YI', 'YX', 'YY', 'YZ',
+ 'ZI', 'ZX', 'ZY', 'ZZ']
 
 def plot_process_matrix(m: np.ndarray, basis_name: list[str], ax=None, title=None, base: int = 2):
     """

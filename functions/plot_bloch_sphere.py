@@ -1,3 +1,29 @@
+"""
+plot_bloch_sphere.py
+
+A utility module for visualizing quantum states on the Bloch sphere. 
+Includes functions to convert quantum states to Bloch vector coordinates, 
+plot the Bloch sphere, render Bloch vectors, and highlight 3D outlines.
+
+Functions:
+- density_matrix_to_bloch: Converts a density matrix or statevector to Bloch vector coordinates.
+- plot_bloch_sphere: Draws the Bloch sphere with key reference lines and labels.
+- plot_bloch_vector: Renders a Bloch vector and optional label on the sphere.
+- add_3d_outline: Adds a silhouette outline to a 3D surface for visual clarity.
+
+Dependencies:
+- numpy
+- matplotlib
+"""
+
+__all__ = [
+    "density_matrix_to_bloch",
+    "plot_bloch_sphere",
+    "plot_bloch_vector",
+    "add_3d_outline"
+]
+
+
 import numpy as np
 import matplotlib.pyplot as plt
 
