@@ -1,0 +1,8 @@
+{
+  "0 noise": 0.05,
+  "pi 4 noise": 0.58,
+  "pi 8 noise": 0.78,
+  "0 shift": 0.18,
+  "pi 4 shift": -0.13,
+  "pi 8 shift": -0.6
+}
