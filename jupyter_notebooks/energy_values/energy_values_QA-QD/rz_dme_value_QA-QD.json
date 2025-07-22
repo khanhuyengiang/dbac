@@ -1,8 +1,14 @@
 {
-  "0 noise": 0.05,
-  "pi 4 noise": 0.58,
-  "pi 8 noise": 0.78,
-  "0 shift": 0.18,
-  "pi 4 shift": -0.13,
-  "pi 8 shift": -0.6
+  "phi0 E1 p": 0.06,
+  "phi0 E1 Delta": 0.2,
+  "phi8 E1 p": 0.81,
+  "phi8 E1 Delta": -0.45,
+  "phi4 E1 p": 0.57,
+  "phi4 E1 Delta": -0.2,
+  "phi0 E2 p": 0.35,
+  "phi0 E2 Delta": -0.79,
+  "phi8 E2 p": 0.36,
+  "phi8 E2 Delta": -0.63,
+  "phi4 E2 p": 0.48,
+  "phi4 E2 Delta": -0.0
 }
