@@ -1,4 +1,4 @@
-# dbac
+# Double-Bracket Algorithmic Cooling (dbac) package
 
 Code accompanying the paper **[Double-Bracket Algorithmic Cooling](https://arxiv.org/abs/2510.00302)**
 (M. Alghadeer, K. U. Giang, S. Cao, S. D. Fasciati, M. Piscitelli, N. Ng, P. J. Leek,
