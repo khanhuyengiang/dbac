@@ -2,7 +2,9 @@
 GCI: Group Commutator Iteration framework for quantum state evolution and optimization.
 
 This module provides a class-based structure to execute and analyze QITE-like procedures
-using energy minimization and fidelity tracking, and supports plotting of results.
+using energy minimization and fidelity tracking. Plotting of the results produced by
+`GCI.execute_gci` lives in `visualization.gci_plots.plot_gci_results`, so this module has
+no matplotlib dependency.
 """
 
 __all__ = [
@@ -13,7 +15,6 @@ __all__ = [
 from qibo import hamiltonians, Circuit
 from qibo.symbols import Z
 import numpy as np
-import matplotlib.pyplot as plt
 
 class GCI:
     """
@@ -125,38 +126,6 @@ class GCI:
             self.state_of_recursion,
             self.fidelities
         )
-
-    def plot_GCI_results(self, *results, save_path=None, mode='Default'):
-        """
-        Plot energy or fidelity vs evolution duration.
-
-        Args:
-            *results: Output tuples from `execute_gci`.
-            save_path (str, optional): Not used, placeholder.
-            mode (str): 'Default' for energy, 'Fidelity' for fidelity plot.
-        """
-        if mode == 'Default':
-            for result in results:
-                if result[5] == '-':
-                    plt.plot(result[3], result[0], label=result[4], linestyle=result[5])
-                else:
-                    plt.plot(result[3], result[0], label=result[4], marker=result[5])
-            plt.ylabel('Energy')
-            plt.axline((0, self.target_energy), (results[0][3][-1], self.target_energy), linestyle=":")
-
-        elif mode == 'Fidelity':
-            for result in results:
-                if result[5] == '-':
-                    plt.plot(result[3], result[-1], label=result[4], linestyle=result[5])
-                else:
-                    plt.plot(result[3], result[-1], label=result[4], marker=result[5])
-            plt.ylabel('Fidelity')
-            plt.axline((0, 1), (results[0][3][-1], 1), linestyle=":")
-
-        plt.xlabel('Evolution duration')
-        plt.grid()
-        plt.legend(bbox_to_anchor=(1, 1))
-        plt.show()
 
 def max_excitation(thetas, fidelity, target_fidelity, initial_tolerance=1e-5, max_tolerance=0.2, step=1e-3):
     """

@@ -20,7 +20,8 @@ __all__ = [
     "density_matrix_to_bloch",
     "plot_bloch_sphere",
     "plot_bloch_vector",
-    "add_3d_outline"
+    "add_3d_outline",
+    "plot_bloch_trajectory",
 ]
 
 
@@ -139,8 +140,7 @@ def plot_bloch_vector(state, ax, color='r', num_points=100, text=None, marker=No
     text (str or None): Text to place on the latitude circle (default is None).
     """
     # Get the Bloch vector components (x, y, z) from the density matrix or statevector
-    x, y, z = density_matrix_to_bloch(state)  # Replace with your actual state data
-    print(x, y, z)
+    x, y, z = density_matrix_to_bloch(state)
 
     # Plot the Bloch vector (the red arrow)
     ax.quiver(0, 0, 0, x, y, z, color=color, length=1.0, arrow_length_ratio=0.1)
@@ -204,5 +204,52 @@ def add_3d_outline(ax, x, y, z, color='black', linewidth=2):
 
     # Plot the detected silhouette
     ax.plot(edge_x, edge_y, edge_z, color=color, linewidth=linewidth)
-    
+
+    return ax
+
+
+def plot_bloch_trajectory(states, texts, *, colors=None, marker=None, marker_color=None,
+                           target_fidelity=None, save_path=None):
+    """
+    Plot a sequence of states (e.g. the DB-QITE recursion states returned by
+    `GCI.execute_gci`) on the Bloch sphere, one latitude circle per state, and
+    optionally a dashed latitude circle marking a target fidelity with |0>.
+
+    Parameters:
+        states (sequence): Density matrices or state vectors, one per step.
+        texts (sequence[str]): Label for each state's latitude circle.
+        colors (sequence[str], optional): Color per state. Defaults to
+            ['C0', '#2c0084', '#7a0085', '#006f7a'].
+        marker (str, optional): Marker for the first (initial) state.
+        marker_color (str, optional): Marker color for the first state.
+        target_fidelity (float, optional): If given, draws a dashed latitude
+            circle at this fidelity with |0>.
+        save_path (str, optional): If given, saves the figure to this path.
+
+    Returns:
+        matplotlib.axes._axes.Axes: The 3D axes with the trajectory drawn.
+    """
+    if colors is None:
+        colors = ['C0', '#2c0084', '#7a0085', '#006f7a']
+
+    ax = plot_bloch_sphere()
+
+    if target_fidelity is not None:
+        theta = 2 * np.arccos(np.sqrt(target_fidelity))
+        u = np.linspace(0, 2 * np.pi, 100)
+        x_lat = np.outer(np.cos(u), np.sin(theta))
+        y_lat = np.outer(np.sin(u), np.sin(theta))
+        z_lat = np.outer(np.ones(np.size(u)), np.cos(theta))
+        ax.plot(x_lat, y_lat, z_lat, color='k', lw=1, alpha=1, linestyle='--')
+
+    for i, (state, text) in enumerate(zip(states, texts)):
+        if i == 0 and marker is not None:
+            ax = plot_bloch_vector(state, ax, color=colors[i], text=text,
+                                    marker=marker, marker_color=marker_color)
+        else:
+            ax = plot_bloch_vector(state, ax, color=colors[i], text=text)
+
+    if save_path is not None:
+        plt.savefig(save_path, bbox_inches="tight", pad_inches=-1.1)
+
     return ax
