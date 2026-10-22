@@ -26,60 +26,58 @@ Nernst principle ("cooling to absolute zero costs infinite resources").
 ## Repository layout
 
 ```
-functions/        Physics and numerics: DME, DB-QITE/GCI recursion, HBAC, state utilities.
-visualization/     All plotting code, factored out of the physics and shared across scripts/notebooks.
-scripts/           One script per figure/result: computation + calls into visualization/, runnable standalone.
-jupyter_notebooks/ Narrated walkthroughs that call scripts/ and visualization/ and explain the physics.
+src/dbac/          Physics and numerics: DME, DB-QITE/GCI recursion, HBAC, state utilities.
+src/dbac/plotting/ All plotting code, factored out of the physics and shared across scripts/notebooks.
+scripts/           The three DBAC scripts (computation + plotting), runnable standalone.
+notebooks/ Narrated walkthroughs that call scripts/ and dbac.plotting and explain the physics.
+figures/           All generated figures (PDF).
+docs/              Sphinx documentation (`pip install -e ".[docs]" && make -C docs html`).
 ```
 
-### `functions/` -- physics and numerics (no plotting)
+### `src/dbac/` -- physics and numerics (no plotting)
 
 | File | Contents |
 |---|---|
 | `dme.py` | Density matrix exponentiation: exact (`dme_expm`), SWAP+numpy (`dme_channel`), analytical equivalent (`dme_channel_equivalent`), and qibo-circuit (`dme_qibo`) implementations. |
-| `qite_dme.py` | A single-qubit DB-QITE step built on top of Trotterized DME (`QITE_GCI_dme`) or on the exact unitary (`ideal_DME`). |
-| `qite_gci.py` | `GCI`: runs and tracks a DB-QITE/"group commutator iteration" recursion (energy, fidelity, states) for a fixed number of steps or by greedily picking the best step size at each round. |
+| `dbqite.py` | A single-qubit DB-QITE step built on top of Trotterized DME (`QITE_GCI_dme`) or on the exact unitary (`ideal_DME`). |
+| `gci.py` | `GCI`: runs and tracks a DB-QITE/"group commutator iteration" recursion (energy, fidelity, states) for a fixed number of steps or by greedily picking the best step size at each round. |
 | `hbac.py` | Heat-bath algorithmic cooling (reset + compress), the classical baseline DBAC is compared against. |
 | `utils.py` | Shared helpers: fidelity with the ground state, depolarizing noise, thermal states, the $R_X(\theta)$ initial-state sweep used throughout. |
 
-### `visualization/` -- all plotting
+### `src/dbac/plotting/` -- all plotting
 
 | File | Contents |
 |---|---|
 | `style.py` | Shared journal figure sizes and matplotlib `rcParams`. |
-| `bloch_sphere.py` | Bloch-sphere rendering of single-qubit states and DB-QITE recursion trajectories. |
-| `process_matrix.py` | Pauli-transfer-matrix heatmaps and a hue/size process-matrix plot. |
-| `gci_plots.py` | Energy/fidelity vs. evolution-duration plots for `GCI.execute_gci` output. |
-| `dbac_plots.py` | The cooling-performance figures: fidelity-fidelity plots, energy-vs-$\theta$ plots, grid layouts, and the ideal-DME summary figure. |
-| `dme_plots.py` | DME-channel-implementation benchmark plots. |
+| `bloch.py` | Bloch-sphere rendering of single-qubit states and DB-QITE recursion trajectories. |
+| `ptm.py` | Pauli-transfer-matrix heatmaps and a hue/size process-matrix plot. |
+| `gci.py` | Energy/fidelity vs. evolution-duration plots for `GCI.execute_gci` output. |
+| `cooling.py` | The cooling-performance figures: fidelity-fidelity plots, energy-vs-$\theta$ plots, grid layouts, and the ideal-DME summary figure. |
+| `dme.py` | DME-channel-implementation benchmark plots. |
 
 ### `scripts/` -- one script per result, runnable from the command line
 
-Each script does the computation (calling into `functions/`), calls `visualization/` to
-plot it, and saves the resulting figures to `jupyter_notebooks/plots/`:
+The three DBAC scripts do the computation (calling into `dbac`), calls `dbac.plotting` to
+plot it, and saves the resulting figures to `figures/`:
 
 ```bash
-pip install -r requirements.txt
-python scripts/dme_channel.py        # DME channel implementation benchmark
-python scripts/dme_ptm_plot.py       # Pauli-transfer-matrix view of the DME/DBAC unitary
-python scripts/hbac.py               # HBAC classical-cooling baseline
-python scripts/dbac_ideal_dme.py     # DBAC with ideal (M -> infinity) DME, sweep over k
-python scripts/dbac_main_plot.py     # Main result: cooling vs. number of quantum instructions (Fig. 4)
-python scripts/dbac_mixed.py         # DBAC on depolarized states + Bloch-sphere illustration
+pip install -e .
+python scripts/sup_figure_S2.py      # DME channel implementation benchmark
+python scripts/sup_figure_S4.py       # DBAC with ideal (M -> infinity) DME, sweep over k
+python scripts/figure_4.py           # Main result: cooling vs. number of quantum instructions (Fig. 4)
+python scripts/sup_figure_S5.py       # Bloch-sphere illustration of the DBAC recursion
 ```
 
-### `jupyter_notebooks/` -- narrated walkthroughs
+### `notebooks/` -- narrated walkthroughs
 
 | Notebook | Figure(s) | What it shows |
 |---|---|---|
-| [`dme_channel.ipynb`](jupyter_notebooks/dme_channel.ipynb) | `DME_norm.pdf` | DME channel implementations converging to the exact evolution as the Trotter step count $M$ grows. |
-| [`dme_ptm_plot.ipynb`](jupyter_notebooks/dme_ptm_plot.ipynb) | `ptm_*.pdf` | Pauli-transfer-matrix view of the ideal $ZZ$ interaction, the DME unitary, and the two hardware circuits (A, B). |
-| [`hbac.ipynb`](jupyter_notebooks/hbac.ipynb) | `hbac_3_qubits.pdf` | Heat-bath algorithmic cooling baseline on a 3-qubit chain, pure vs. depolarized input. |
-| [`dbac_ideal_dme_(rainbow_plot).ipynb`](<jupyter_notebooks/dbac_ideal_dme_(rainbow_plot).ipynb>) | `QITE_ideal_DME_merged.pdf` (Fig. 7) | DBAC in the ideal-DME limit, sweeping the recursion depth $k$. |
-| [`dbac_main_plot.ipynb`](jupyter_notebooks/dbac_main_plot.ipynb) | `3_circuit_fid.pdf`, `dbac_grid_layout.pdf`, ... (Fig. 4) | **Main result**: Trotterized-DME DBAC cooling performance vs. number of quantum instructions, compared to hardware experiment data. |
-| [`dbac_mixed.ipynb`](jupyter_notebooks/dbac_mixed.ipynb) | `bloch_good/mid/bad.pdf` | Robustness to depolarizing noise, and a Bloch-sphere picture of the recursion. |
+| [`dme_ptm_plot.ipynb`](notebooks/dme_ptm_plot.ipynb) | `ptm_*.pdf` | Pauli-transfer-matrix view of the ideal $ZZ$ interaction, the DME unitary, and the two hardware circuits (A, B). |
+| [`hbac.ipynb`](notebooks/hbac.ipynb) | `hbac_3_qubits.pdf` | Heat-bath algorithmic cooling baseline on a 3-qubit chain, pure vs. depolarized input. |
+| [`sup_figure_S4.ipynb`](notebooks/sup_figure_S4.ipynb) | `S4_QITE_ideal_DME_merged.pdf` (Fig. 7) | DBAC in the ideal-DME limit, sweeping the recursion depth $k$. |
+| [`figure_4.ipynb`](notebooks/figure_4.ipynb) | `F4_*.pdf` (Fig. 4) | **Main result**: Trotterized-DME DBAC cooling performance vs. number of quantum instructions, compared to hardware experiment data. |
 
-`jupyter_notebooks/not_in_use/` holds earlier exploratory notebooks kept for reference;
+`notebooks/not_in_use/` holds earlier exploratory notebooks kept for reference;
 they are not part of the maintained code path.
 
 ## Setup
@@ -87,13 +85,13 @@ they are not part of the maintained code path.
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
-jupyter notebook jupyter_notebooks/
+pip install -e ".[notebooks]"
+jupyter notebook notebooks/
 ```
 
 Figures that use LaTeX-rendered labels require a local LaTeX installation (`matplotlib`'s
 `text.usetex`); without one, either install `texlive` or disable it via
-`visualization.use_paper_style(use_tex=False)`.
+`dbac.plotting.use_paper_style(use_tex=False)`.
 
 ## Citation
 
@@ -109,3 +107,5 @@ If you use this code, please cite:
   year    = {2025}
 }
 ```
+
+Notebooks only save their plots when `SAVE_PLOTS = True` in [`notebooks/config.py`](notebooks/config.py) (off by default); PDFs then go to `figures/`.

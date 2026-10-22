@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: If you use this software, please cite the accompanying paper.
+title: dbac
+type: software
+repository-code: https://github.com/khanhuyengiang/dbac
+preferred-citation:
+  type: article
+  title: Double-Bracket Algorithmic Cooling
+  authors:
+    - {family-names: Alghadeer, given-names: Mohammed}
+    - {family-names: Giang, given-names: Khanh Uyen}
+    - {family-names: Cao, given-names: Shuxiang}
+    - {family-names: Fasciati, given-names: Simone D.}
+    - {family-names: Piscitelli, given-names: Michele}
+    - {family-names: Ng, given-names: Nelly}
+    - {family-names: Leek, given-names: Peter J.}
+    - {family-names: Gluza, given-names: Marek}
+    - {family-names: Bakr, given-names: Mustafa}
+  journal: arXiv preprint arXiv:2510.00302
+  year: 2025

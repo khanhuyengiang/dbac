@@ -1,0 +1,36 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "dbac"
+version = "0.1.0"
+description = "Double-Bracket Algorithmic Cooling: simulation, DME, HBAC baseline and plotting code."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "Khanh Uyen Giang", email = "khanh.giang@tu-darmstadt.de" }]
+keywords = ["quantum", "algorithmic cooling", "double-bracket flow", "QITE", "density matrix exponentiation"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+dependencies = [
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "matplotlib>=3.9",
+    "qibo>=0.3",
+    "qutip>=5.0",
+]
+
+[project.optional-dependencies]
+notebooks = ["jupyter>=1.1"]
+docs = ["sphinx>=7.3", "furo", "myst-parser>=3.0"]
+test = ["pytest>=8"]
+
+[project.urls]
+Homepage = "https://github.com/khanhuyengiang/dbac"
+Paper = "https://arxiv.org/abs/2510.00302"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/dbac"]
