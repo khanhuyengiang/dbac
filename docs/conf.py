@@ -16,7 +16,7 @@ extensions = [
     "sphinx.ext.mathjax",
     "sphinx.ext.viewcode",
     "sphinx.ext.intersphinx",
-    "myst_parser",
+    "myst_nb",
 ]
 autodoc_member_order = "bysource"
 autodoc_mock_imports = ["qibo", "qutip"]
@@ -28,4 +28,5 @@ intersphinx_mapping = {
 myst_enable_extensions = ["dollarmath", "amsmath"]
 html_theme = "furo"
 html_baseurl = "https://dbac.khanhuyengiang.com/"
-exclude_patterns = ["_build"]
+nb_execution_mode = "off"  # notebooks are committed with their outputs
+exclude_patterns = ["_build", "**.ipynb_checkpoints"]

@@ -13,6 +13,7 @@ Submodules
    :maxdepth: 4
 
    dbac.plotting.bloch
+   dbac.plotting.circuits
    dbac.plotting.cooling
    dbac.plotting.dme
    dbac.plotting.gci

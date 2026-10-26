@@ -75,7 +75,7 @@ python scripts/sup_figure_S5.py       # Bloch-sphere illustration of the DBAC re
 | [`dme_ptm_plot.ipynb`](notebooks/dme_ptm_plot.ipynb) | `ptm_*.pdf` | Pauli-transfer-matrix view of the ideal $ZZ$ interaction, the DME unitary, and the two hardware circuits (A, B). |
 | [`hbac.ipynb`](notebooks/hbac.ipynb) | `hbac_3_qubits.pdf` | Heat-bath algorithmic cooling baseline on a 3-qubit chain, pure vs. depolarized input. |
 | [`sup_figure_S4.ipynb`](notebooks/sup_figure_S4.ipynb) | `S4_QITE_ideal_DME_merged.pdf` (Fig. 7) | DBAC in the ideal-DME limit, sweeping the recursion depth $k$. |
-| [`figure_4.ipynb`](notebooks/figure_4.ipynb) | `F4_*.pdf` (Fig. 4) | **Main result**: Trotterized-DME DBAC cooling performance vs. number of quantum instructions, compared to hardware experiment data. |
+| [`docs/index.ipynb`](docs/index.ipynb) | `F4_*.pdf` (Fig. 4) | **Main result** (also the front page of the docs): Trotterized-DME DBAC cooling performance vs. number of quantum instructions, compared to hardware experiment data. |
 
 `notebooks/not_in_use/` holds earlier exploratory notebooks kept for reference;
 they are not part of the maintained code path.

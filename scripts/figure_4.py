@@ -43,6 +43,18 @@ CIRCUIT_FILENAMES = {
     r'$n=4$': "F4_Circuit_C_n_4.pdf",
 }
 
+# Styling of each circuit's curve and experimental markers, matching the paper's Fig. 4.
+CIRCUIT_COLORS = {
+    r'$n=2$': '#7a0085',
+    r'$n=3$': '#2c0084',
+    r'$n=4$': '#1a1a8d',
+}
+CIRCUIT_MARKERS = {label: 'o' for label in CIRCUITS}
+
+# Tick marks (in units of pi) of the energy-vs-theta plots.
+XTICKS = [0, np.pi / 8, np.pi / 4, 3 * np.pi / 8, np.pi / 2]
+XTICK_LABELS = [r'$0$', r'$\frac{\pi}{8}$', r'$\frac{\pi}{4}$', r'$\frac{3\pi}{8}$', r'$\frac{\pi}{2}$']
+
 # Hardware calibration-experiment data points (theta, energy), digitized from
 # the device runs reported in the paper, used to validate the simulation.
 EXPERIMENTAL_ENERGY = {
@@ -92,17 +104,11 @@ def main():
     energy_results = run_dbac_circuits(psis_energy, optimal_s_Mk, as_fidelity=False)
 
     # --- Per-circuit energy-vs-theta with experimental overlay ---------------
-    colors = ['#7a0085', '#2c0084', '#006f7a']
-    markers = ['o', 'o', 's']
-    small_xticks = [0, np.pi / 8, np.pi / 4, 3 * np.pi / 8, np.pi / 2]
-    small_xtick_labels = [r'$0$', r'$\frac{\pi}{8}$', r'$\frac{\pi}{4}$', r'$\frac{3\pi}{8}$', r'$\frac{\pi}{2}$']
-
-    for i, (label, curve) in enumerate(energy_results.items()):
-        fname = PLOTS_DIR / CIRCUIT_FILENAMES[label]
+    for label, curve in energy_results.items():
         plot_single_energy_curve(
-            theta_angles, res_init, label, curve, colors[i], markers[i],
+            theta_angles, res_init, label, curve, CIRCUIT_COLORS[label], CIRCUIT_MARKERS[label],
             experimental=EXPERIMENTAL_ENERGY.get(label),
-            xticks=small_xticks, xtick_labels=small_xtick_labels, save_path=fname)
+            xticks=XTICKS, xtick_labels=XTICK_LABELS, save_path=PLOTS_DIR / CIRCUIT_FILENAMES[label])
 
 if __name__ == "__main__":
     main()
