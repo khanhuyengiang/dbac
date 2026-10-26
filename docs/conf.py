@@ -30,6 +30,29 @@ myst_enable_extensions = ["dollarmath", "amsmath", "colon_fence"]
 myst_heading_anchors = 3
 html_theme = "furo"
 html_title = "dbac"
+# House style shared with khanhuyengiang.com; see the header of _static/academic.css.
+html_static_path = ["_static"]
+html_css_files = [
+    "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600"
+    "&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap",
+    "academic.css",
+]
+pygments_style = "lovelace"
+pygments_dark_style = "dracula"
+# Furo's default sidebar with a "back to khanhuyengiang.com" link above the brand.
+templates_path = ["_templates"]
+html_sidebars = {
+    "**": [
+        "sidebar/home-link.html",
+        "sidebar/brand.html",
+        "sidebar/search.html",
+        "sidebar/scroll-start.html",
+        "sidebar/navigation.html",
+        "sidebar/ethical-ads.html",
+        "sidebar/scroll-end.html",
+        "sidebar/variant-selector.html",
+    ]
+}
 html_theme_options = {
     "source_repository": "https://github.com/khanhuyengiang/dbac/",
     "source_branch": "main",

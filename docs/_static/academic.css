@@ -1,0 +1,255 @@
+/*
+ * academic.css: a Furo skin matching khanhuyengiang.com
+ * =====================================================
+ *
+ * Calm and typographic: Newsreader serif headings, Inter body text, and a
+ * pastel pink / lavender / blue palette. The signature details are a thin
+ * pink-to-blue gradient band across the top of the page and a small rounded
+ * square "dot" before each section heading. Links are a readable pink
+ * (#b03a72); UI accents (sidebar, active ToC entry, API names) are lavender
+ * ink (#6a55b5). Pastel fills (#fde6f0, #ece6fc, #e0f2fd) are only used as
+ * backgrounds, never as text colours. Light and dark mode both follow the
+ * site, including Furo's manual theme toggle.
+ *
+ * To use it in a repo, copy this file to docs/_static/academic.css and add
+ * this to docs/conf.py (needs Sphinx >= 7 and a recent Furo):
+ *
+ *   html_theme = "furo"
+ *   html_static_path = ["_static"]
+ *   html_css_files = [
+ *       "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600"
+ *       "&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap",
+ *       "academic.css",
+ *   ]
+ *   pygments_style = "lovelace"
+ *   pygments_dark_style = "dracula"
+ *
+ * Only the colour tokens below need changing to re-tint it.
+ */
+
+/* ---------- tokens: light ---------- */
+body {
+  --ac-bg: #fdfcff;
+  --ac-surface: #ffffff;
+  --ac-sidebar: #f8f6fd;
+  --ac-ink: #2b2740;
+  --ac-muted: #6b6585;
+  --ac-faint: #9a94b3;
+  --ac-line: #ece8f6;
+
+  --ac-pink: #fde6f0;
+  --ac-lavender: #ece6fc;
+  --ac-blue: #e0f2fd;
+  --ac-pink-strong: #ff8fb8;
+  --ac-lavender-strong: #b9a3f0;
+  --ac-blue-strong: #8fd0fa;
+
+  --ac-accent: #b03a72;   /* links: readable pink */
+  --ac-accent-2: #6a55b5; /* UI accents: lavender ink */
+  --ac-code-bg: #faf8ff;
+
+  --ac-serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --ac-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ac-radius: 14px;
+}
+
+/* ---------- tokens: dark (manual toggle + system preference, as Furo does it) ---------- */
+@media not print {
+  body[data-theme="dark"] {
+    --ac-bg: #17142a;
+    --ac-surface: #1f1b36;
+    --ac-sidebar: #1b1831;
+    --ac-ink: #eeeaff;
+    --ac-muted: #b4acd6;
+    --ac-faint: #8a82ad;
+    --ac-line: #2f2950;
+    --ac-pink: #3a2342;
+    --ac-lavender: #2c2552;
+    --ac-blue: #1d2d47;
+    --ac-accent: #ff9ec3;
+    --ac-accent-2: #c5b4ff;
+    --ac-code-bg: #1d1933;
+  }
+  @media (prefers-color-scheme: dark) {
+    body:not([data-theme="light"]) {
+      --ac-bg: #17142a;
+      --ac-surface: #1f1b36;
+      --ac-sidebar: #1b1831;
+      --ac-ink: #eeeaff;
+      --ac-muted: #b4acd6;
+      --ac-faint: #8a82ad;
+      --ac-line: #2f2950;
+      --ac-pink: #3a2342;
+      --ac-lavender: #2c2552;
+      --ac-blue: #1d2d47;
+      --ac-accent: #ff9ec3;
+      --ac-accent-2: #c5b4ff;
+      --ac-code-bg: #1d1933;
+    }
+  }
+}
+
+/* ---------- map tokens onto Furo's variables ---------- */
+body,
+body[data-theme] {
+  --font-stack: var(--ac-sans);
+  --font-stack--headings: var(--ac-serif);
+  --font-stack--monospace: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --color-foreground-primary: var(--ac-ink);
+  --color-foreground-secondary: var(--ac-muted);
+  --color-foreground-muted: var(--ac-faint);
+  --color-foreground-border: var(--ac-faint);
+
+  --color-background-primary: var(--ac-bg);
+  --color-background-secondary: var(--ac-sidebar);
+  --color-background-hover: var(--ac-lavender);
+  --color-background-hover--transparent: transparent;
+  --color-background-border: var(--ac-line);
+  --color-background-item: var(--ac-lavender-strong);
+
+  --color-brand-primary: var(--ac-accent-2);
+  --color-brand-content: var(--ac-accent);
+  --color-brand-visited: var(--ac-accent);
+
+  --color-link-underline: transparent;
+  --color-link-underline--hover: currentColor;
+  --color-link-underline--visited: transparent;
+
+  --color-announcement-background: var(--ac-lavender);
+  --color-announcement-text: var(--ac-ink);
+
+  --color-highlighted-background: var(--ac-pink);
+  --color-highlight-on-target: var(--ac-lavender);
+  --color-inline-code-background: var(--ac-lavender);
+  --color-guilabel-background: var(--ac-blue);
+  --color-guilabel-border: var(--ac-line);
+
+  --color-api-name: var(--ac-accent-2);
+  --color-api-pre-name: var(--ac-muted);
+  --color-api-keyword: var(--ac-accent);
+
+  --color-sidebar-brand-text: var(--ac-ink);
+  --color-sidebar-caption-text: var(--ac-faint);
+  --color-sidebar-link-text: var(--ac-muted);
+  --color-sidebar-link-text--top-level: var(--ac-ink);
+  --color-sidebar-item-background--hover: var(--ac-lavender);
+  --color-sidebar-search-background: var(--ac-surface);
+  --color-sidebar-search-background--focus: var(--ac-surface);
+  --color-toc-item-text--active: var(--ac-accent);
+
+  --color-table-header-background: var(--ac-lavender);
+  --color-card-border: var(--ac-line);
+  --color-card-background: var(--ac-surface);
+  --color-card-marginals-background: var(--ac-lavender);
+  --color-admonition-background: var(--ac-surface);
+
+  /* admonitions: strong pastel for the icon + rule, soft pastel behind the title */
+  --color-admonition-title--note: var(--ac-blue-strong);
+  --color-admonition-title-background--note: var(--ac-blue);
+  --color-admonition-title--seealso: var(--ac-blue-strong);
+  --color-admonition-title-background--seealso: var(--ac-blue);
+  --color-admonition-title--tip: var(--ac-lavender-strong);
+  --color-admonition-title-background--tip: var(--ac-lavender);
+  --color-admonition-title--hint: var(--ac-lavender-strong);
+  --color-admonition-title-background--hint: var(--ac-lavender);
+  --color-admonition-title--important: var(--ac-lavender-strong);
+  --color-admonition-title-background--important: var(--ac-lavender);
+  --color-admonition-title--admonition-todo: var(--ac-faint);
+  --color-admonition-title-background--admonition-todo: var(--ac-line);
+  --color-admonition-title--caution: var(--ac-pink-strong);
+  --color-admonition-title-background--caution: var(--ac-pink);
+  --color-admonition-title--warning: var(--ac-pink-strong);
+  --color-admonition-title-background--warning: var(--ac-pink);
+  --color-admonition-title--attention: var(--ac-pink-strong);
+  --color-admonition-title-background--attention: var(--ac-pink);
+  --color-admonition-title--danger: var(--ac-accent);
+  --color-admonition-title-background--danger: var(--ac-pink);
+  --color-admonition-title--error: var(--ac-accent);
+  --color-admonition-title-background--error: var(--ac-pink);
+  --color-admonition-title: var(--ac-lavender-strong);
+  --color-admonition-title-background: var(--ac-lavender);
+  --color-topic-title: var(--ac-lavender-strong);
+  --color-topic-title-background: var(--ac-lavender);
+}
+
+body { -webkit-font-smoothing: antialiased; }
+
+/* signature: thin pastel band across the top */
+body::before {
+  content: "";
+  display: block;
+  height: 5px;
+  background: linear-gradient(90deg, var(--ac-pink-strong), var(--ac-lavender-strong), var(--ac-blue-strong));
+}
+
+:focus-visible { outline: 2px solid var(--ac-accent-2); outline-offset: 2px; border-radius: 4px; }
+
+/* ---------- headings ---------- */
+h1, h2, h3, h4, .sidebar-brand-text { font-weight: 500; letter-spacing: -0.01em; }
+.sidebar-brand-text { font-family: var(--ac-serif); font-size: 1.5rem; }
+article h1 { font-size: 2.3em; line-height: 1.15; }
+
+/* the coloured dot before section headings, cycling pink / lavender / blue */
+article section > h2::before {
+  content: ""; display: inline-block; width: 0.4em; height: 0.4em; border-radius: 3px;
+  margin-right: 0.5em; vertical-align: 0.15em;
+  background: var(--ac-lavender-strong);
+}
+article section > section:nth-of-type(3n+1) > h2::before { background: var(--ac-pink-strong); }
+article section > section:nth-of-type(3n) > h2::before { background: var(--ac-blue-strong); }
+
+/* ---------- links ---------- */
+a { text-underline-offset: 3px; }
+.sidebar-tree a.reference:hover { text-decoration: none; }
+.sidebar-tree .current-page > .reference { color: var(--ac-accent); font-weight: 500; }
+
+/* ---------- code ---------- */
+code.literal { border: none; border-radius: 6px; padding: 0.1em 0.35em; color: var(--ac-ink); }
+div.highlight, .highlight { border-radius: 10px; }
+body .highlight, body[data-theme] .highlight { background: var(--ac-code-bg) !important; }
+div[class*="highlight-"], .cell_output, .cell_input { border-radius: 10px; }
+div[class*="highlight-"] > .highlight { border: 1px solid var(--ac-line); }
+/* myst-nb notebook cells */
+div.cell div.cell_input { border: 1px solid var(--ac-line); border-left: 3px solid var(--ac-lavender-strong); background: var(--ac-code-bg); }
+div.cell div.cell_input .highlight { border: none; }
+
+/* ---------- admonitions, cards, tables ---------- */
+.admonition, .topic { border-radius: var(--ac-radius); overflow: hidden; border: 1px solid var(--ac-line); box-shadow: none; }
+.admonition > .admonition-title, p.topic-title { font-weight: 600; }
+.sd-card { border-radius: var(--ac-radius) !important; transition: border-color .2s, transform .2s; }
+.sd-card:hover { border-color: var(--ac-lavender-strong) !important; }
+table.docutils { border-radius: 10px; overflow: hidden; border-collapse: separate; border-spacing: 0; box-shadow: 0 0 0 1px var(--ac-line); }
+table.docutils th { font-weight: 600; }
+table.docutils td, table.docutils th { border-color: var(--ac-line); }
+
+/* ---------- API reference (autodoc) ---------- */
+dl.py > dt, dl.class > dt, dl.function > dt {
+  border-radius: 8px; padding: 0.35em 0.6em; background: var(--ac-surface); border: 1px solid var(--ac-line);
+}
+dl.py > dt:target { background: var(--ac-lavender); }
+dl.py .sig-name { font-weight: 600; }
+.field-list > dt { color: var(--ac-accent-2); }
+
+/* ---------- small chrome ---------- */
+.sidebar-search-container { background: transparent; }
+.sidebar-search { border-radius: 999px; margin: 0.4rem 0.6rem; width: calc(100% - 1.2rem); border: 1px solid var(--ac-line); }
+.sidebar-search-container::before { left: 1.1rem; }
+.toc-title { letter-spacing: .1em; }
+.related-pages a { border-radius: var(--ac-radius); }
+.related-pages a:hover { background: var(--ac-lavender); text-decoration: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .sd-card { transition: none; }
+}
+
+/* ---------- link back to the main site (sidebar/home-link.html) ---------- */
+.sidebar-home-link {
+  display: block;
+  padding: var(--sidebar-item-spacing-vertical) var(--sidebar-item-spacing-horizontal) 0;
+  font-family: var(--ac-sans);
+  font-size: var(--sidebar-item-font-size);
+  color: var(--ac-muted);
+  text-decoration: none;
+}
+.sidebar-home-link:hover { color: var(--ac-accent-2); text-decoration: none; }
