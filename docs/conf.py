@@ -27,4 +27,5 @@ intersphinx_mapping = {
 }
 myst_enable_extensions = ["dollarmath", "amsmath"]
 html_theme = "furo"
+html_baseurl = "https://dbac.khanhuyengiang.com/"
 exclude_patterns = ["_build"]
