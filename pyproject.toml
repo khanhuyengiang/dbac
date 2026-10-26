@@ -34,3 +34,10 @@ Paper = "https://arxiv.org/abs/2510.00302"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/dbac"]
+
+[tool.pytest.ini_options]
+# Also run the examples in the docstrings, so they stay correct.
+addopts = "--doctest-modules"
+testpaths = ["tests", "src/dbac"]
+# Same as `dbac/__init__.py`: complex-typed energies are cast to real on purpose.
+filterwarnings = ["ignore::numpy.exceptions.ComplexWarning"]

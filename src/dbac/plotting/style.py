@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 
 _PT = 1.0 / 72.27  # points -> inches (standard LaTeX point)
 
+#: Column widths in inches, ``JOURNAL_WIDTHS[journal][column]``.
 JOURNAL_WIDTHS = {
     "PRD": {"onecol": 246.0 * _PT, "twocol": 510.0 * _PT},
     "CQG": {"onecol": 374.0 * _PT},  # CQG is single column

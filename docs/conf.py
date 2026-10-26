@@ -1,3 +1,4 @@
+import os
 import sys
 from pathlib import Path
 
@@ -25,8 +26,22 @@ intersphinx_mapping = {
     "numpy": ("https://numpy.org/doc/stable/", None),
     "scipy": ("https://docs.scipy.org/doc/scipy/", None),
 }
-myst_enable_extensions = ["dollarmath", "amsmath"]
+myst_enable_extensions = ["dollarmath", "amsmath", "colon_fence"]
+myst_heading_anchors = 3
 html_theme = "furo"
+html_title = "dbac"
+html_theme_options = {
+    "source_repository": "https://github.com/khanhuyengiang/dbac/",
+    "source_branch": "main",
+    "source_directory": "docs/",
+}
+add_module_names = False
 html_baseurl = "https://dbac.khanhuyengiang.com/"
-nb_execution_mode = "off"  # notebooks are committed with their outputs
+# The front page (index.ipynb) is committed with its outputs; guide pages opt in to running
+# their examples at build time with `mystnb: execution_mode: force` in their front matter.
+nb_execution_mode = "off"
+nb_execution_raise_on_error = True
+nb_output_stderr = "remove"
 exclude_patterns = ["_build", "**.ipynb_checkpoints"]
+# Keep qibo's "Using numpy backend" log line out of executed outputs (inherited by the kernels).
+os.environ.setdefault("QIBO_LOG_LEVEL", "3")

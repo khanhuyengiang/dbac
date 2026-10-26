@@ -77,11 +77,21 @@ def hbac(rho, epsilon_b=0.8, step=1):
 
     Parameters:
         rho (ndarray): 2^n x 2^n density matrix, last qubit is the reset qubit.
-        epsilon_b (float): Polarization of the fresh reset qubit each round.
+        epsilon_b (float): Polarization of the fresh reset qubit each round,
+            i.e. populations ``(1 +- epsilon_b) / 2``.
         step (int): Number of reset-and-compress rounds.
 
     Returns:
         ndarray: 2x2 reduced density matrix of the first qubit.
+
+    Example:
+        >>> import numpy as np
+        >>> from dbac.hbac import hbac
+        >>> mixed = np.eye(2) / 2                      # maximally mixed qubit
+        >>> rho = np.kron(np.kron(mixed, mixed), mixed)
+        >>> hbac(rho, epsilon_b=0.8, step=6).real.round(3)
+        array([[0.985, 0.   ],
+               [0.   , 0.015]])
     """
     for _ in range(step):
         rho = refresh_reset_qubit(rho, epsilon_b)

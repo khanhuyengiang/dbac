@@ -59,7 +59,7 @@ def density_matrix_to_bloch(state):
 # Function to plot the Bloch vector on the Bloch sphere
 def plot_bloch_sphere(font_size=20):
     """
-    Plots the Bloch sphere with the surface, latitude and longitude lines, and the |0⟩ and |1⟩ labels at the poles.
+    Plots the Bloch sphere with the surface, latitude and longitude lines, and the ``|0>`` and ``|1>`` labels at the poles.
     
     Parameters:
     ax (matplotlib.axes._axes.Axes): The axes on which to plot the Bloch sphere.
@@ -213,7 +213,7 @@ def plot_bloch_trajectory(states, texts, *, colors=None, marker=None, marker_col
     """
     Plot a sequence of states (e.g. the DB-QITE recursion states returned by
     `GCI.execute_gci`) on the Bloch sphere, one latitude circle per state, and
-    optionally a dashed latitude circle marking a target fidelity with |0>.
+    optionally a dashed latitude circle marking a target fidelity with ``|0>``.
 
     Parameters:
         states (sequence): Density matrices or state vectors, one per step.
@@ -223,7 +223,7 @@ def plot_bloch_trajectory(states, texts, *, colors=None, marker=None, marker_col
         marker (str, optional): Marker for the first (initial) state.
         marker_color (str, optional): Marker color for the first state.
         target_fidelity (float, optional): If given, draws a dashed latitude
-            circle at this fidelity with |0>.
+            circle at this fidelity with ``|0>``.
         save_path (str, optional): If given, saves the figure to this path.
 
     Returns:

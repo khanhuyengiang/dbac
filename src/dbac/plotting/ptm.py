@@ -28,7 +28,9 @@ from matplotlib import pyplot as plt
 from matplotlib.colors import hsv_to_rgb, Normalize
 import matplotlib.patches as mpatches
 
+#: Tick labels for the single-qubit Pauli basis.
 pauli_labels = ["I", "X", "Y", "Z"]
+#: Tick labels for the two-qubit Pauli basis, in Kronecker order.
 pauli_labels_2q = ['II', 'IX', 'IY', 'IZ',
  'XI', 'XX', 'XY', 'XZ',
  'YI', 'YX', 'YY', 'YZ',

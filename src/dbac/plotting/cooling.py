@@ -26,8 +26,9 @@ import matplotlib.gridspec as gridspec
 
 from dbac.gci import max_excitation as _max_excitation
 
-# Shared default styling so every figure uses the same palette.
+#: Default palette, cycled over the curves of a plot.
 DEFAULT_COLORS = ['#2c0084', '#7a0085', '#006f7a', 'C0']
+#: Default markers, cycled over the curves of a plot.
 DEFAULT_MARKERS = ['o', 'x', '^', '*', 'P', '*', 'h']
 
 
@@ -56,7 +57,7 @@ def plot_fidelity_fidelity(fidelities_initial, initial_curve, results, *, colors
     configurations. This is the main result plot of the DBAC paper (Fig. 4).
 
     Parameters:
-        fidelities_initial (sequence[float]): Fidelity of each initial state with |0>.
+        fidelities_initial (sequence[float]): Fidelity of each initial state with ``|0>``.
         initial_curve (sequence[float]): Baseline "no cooling" fidelity to plot
             as a dotted reference line (equal to `fidelities_initial` for a
             noiseless initial state).
@@ -68,7 +69,7 @@ def plot_fidelity_fidelity(fidelities_initial, initial_curve, results, *, colors
             for each curve a vertical dashed line at the largest
             `fidelities_initial` for which the final fidelity still reaches
             `target_fidelity`, and returns those positions.
-        annotate_poles (bool): Annotate the |1><1| and |0><0| corners.
+        annotate_poles (bool): Annotate the ``|1><1|`` and ``|0><0|`` corners.
         ax (matplotlib.axes.Axes, optional): Axis to draw on; creates one if None.
         save_path (str, optional): If given, saves the figure.
 
@@ -130,7 +131,7 @@ def plot_energy_vs_theta(theta_angles, initial_energy, results, *, colors=None, 
         colors, markers (sequence, optional): Styling cycled over `results`.
         target_energy (float, optional): Draws a dashed horizontal reference line.
         xticks, xtick_labels (sequence, optional): Custom tick marks (e.g. in units of pi).
-        annotate_poles (bool): Annotate the |1><1| and |0><0| corners.
+        annotate_poles (bool): Annotate the ``|1><1|`` and ``|0><0|`` corners.
         ax (matplotlib.axes.Axes, optional): Axis to draw on; creates one if None.
         save_path (str, optional): If given, saves the figure.
 
@@ -183,13 +184,14 @@ def plot_single_energy_curve(theta_angles, initial_energy, label, curve, color, 
     Parameters:
         theta_angles (sequence[float]): Initialization angle (radians) per sample.
         initial_energy (sequence[float]): Energy of the un-cooled initial state.
-        label (str): Legend label for the analytical curve.
+        label (str): Name of the curve. Currently unused: the legend always
+            reads "Analytical".
         curve (sequence[float]): Analytical final-energy curve.
         color, marker: Styling for the analytical curve / experimental markers.
         experimental (tuple[sequence, sequence], optional): (theta, energy)
             experimental data points to overlay as open markers.
         xticks, xtick_labels (sequence, optional): Custom tick marks.
-        annotate_poles (bool): Annotate the |1><1| and |0><0| corners.
+        annotate_poles (bool): Annotate the ``|1><1|`` and ``|0><0|`` corners.
         save_path (str, optional): If given, saves the figure.
         show (bool): If True, calls plt.show() (useful in a notebook).
 
@@ -379,7 +381,7 @@ def plot_ideal_dme_summary(fidelities_initial, initial_curve, dict_fid, optimal_
     "ideal DME" rainbow-colored figure.
 
     Parameters:
-        fidelities_initial (sequence[float]): Fidelity of each initial state with |0>.
+        fidelities_initial (sequence[float]): Fidelity of each initial state with ``|0>``.
         initial_curve (sequence[float]): Baseline "no cooling" fidelity curve.
         dict_fid (dict[str, sequence[float]]): label (e.g. 'k=1', 'k=2', ...)
             -> final-state fidelity curve.
@@ -430,7 +432,7 @@ def plot_hbac_fidelity_fidelity(fidelities_initial, baselines, results, *, marke
     input states, for different numbers of cooling rounds.
 
     Parameters:
-        fidelities_initial (sequence[float]): Fidelity of each initial (pure) state with |0>.
+        fidelities_initial (sequence[float]): Fidelity of each initial (pure) state with ``|0>``.
         baselines (dict[str, sequence[float]]): label -> dotted reference curve
             (e.g. 'Initial pure state', 'Initial mixed state').
         results (dict[str, sequence[float]]): label -> HBAC output fidelity curve.

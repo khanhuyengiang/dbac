@@ -22,9 +22,10 @@ def _dme(angle):
     return rf'$U_\mathrm{{DME}}({angle})$'
 
 
-# Each op is (column, qubits, label); a gate spanning two qubits is drawn as one tall box.
-# `data` is the (0-based) qubit whose energy is read out; `barriers` lists the columns
-# after which a dashed line separates the DBAC steps.
+#: The circuits A, B and C of the paper's Fig. 4. Each has ``n`` qubits, the (0-based)
+#: ``data`` qubit whose energy is read out, the ``barriers`` (columns after which a dashed
+#: line separates the DBAC steps), and ``ops``: gates as ``(column, qubits, label)``,
+#: where a gate on two qubits is drawn as one tall box.
 DBAC_CIRCUITS = {
     "A": {  # k = 1, M = 1, n = 2
         "n": 2, "data": 0, "barriers": [0],
