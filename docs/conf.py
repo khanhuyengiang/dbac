@@ -30,6 +30,8 @@ myst_enable_extensions = ["dollarmath", "amsmath", "colon_fence"]
 myst_heading_anchors = 3
 html_theme = "furo"
 html_title = "dbac"
+# Browser-tab icon: [[,],] on the site's lavender tile.
+html_favicon = "_static/favicon.svg"
 # House style shared with khanhuyengiang.com; see the header of _static/academic.css.
 html_static_path = ["_static"]
 html_css_files = [
