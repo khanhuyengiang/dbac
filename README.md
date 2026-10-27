@@ -4,6 +4,8 @@ Code accompanying the paper **[Double-Bracket Algorithmic Cooling](https://arxiv
 (M. Alghadeer, K. U. Giang, S. Cao, S. D. Fasciati, M. Piscitelli, N. Ng, P. J. Leek,
 M. Gluza, M. Bakr).
 
+For full documentation, see **[dbac documentation](https://dbac.khanhuyengiang.com/)**.
+
 ## Background
 
 Algorithmic cooling lowers the entropy of a qubit using only local operations and a
