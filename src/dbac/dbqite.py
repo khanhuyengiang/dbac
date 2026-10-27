@@ -5,7 +5,7 @@ One step of double-bracket quantum imaginary-time evolution (DB-QITE), the
 cooling step of DBAC, for a single qubit with Hamiltonian H = -Z.
 
 A step maps the current state psi to exp(i s rho') psi exp(-i s rho'), where
-rho' = exp(i s H) |psi><psi| exp(-i s H) is a rotated copy of psi used as the
+``rho' = exp(i s H) |psi><psi| exp(-i s H)`` is a rotated copy of psi used as the
 instruction of density matrix exponentiation (DME). All step functions share
 the signature `step(psi, s) -> density matrix`, so they can be passed to
 `dbac.gci.GCI` to run several steps.
